@@ -3,7 +3,7 @@ require 'inifile'
 #ini file setup
 #[Settings]
 #API_Key = Your API Key
-#Directory = Where the images will be downloaded
+#directory = Where the images will be downloaded
 ini = IniFile.load("#{File.expand_path(File.dirname(__FILE__))}/settings.ini") # Create a new inifile object.
 s = ini['Settings']    # Get the settings
 a = Mechanize.new { |agent|
