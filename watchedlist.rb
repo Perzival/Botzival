@@ -1,9 +1,5 @@
 require 'mechanize'
 require 'inifile'
-#ini file setup
-#[Settings]
-#API_Key = Your API Key
-#directory = Where the images will be downloaded
 ini = IniFile.load("#{File.expand_path(File.dirname(__FILE__))}/settings.ini") # Create a new inifile object.
 s = ini['Settings']    # Get the settings
 a = Mechanize.new { |agent|
@@ -15,7 +11,7 @@ a = Mechanize.new { |agent|
 derpi = a.get("http://derpiboo.ru/images/watched.rss?key=#{s['API_Key']}&per_page=100")
 page = 1
 currentitems = Dir.entries(s['directory'])
-until derpi.links.nil?
+until derpi.links.empty?
   derpi.links.each do |img|
 	unless (currentitems.grep Regexp.new("^#{img.href.sub(/^http.*:\/\/derpiboo\.ru\//, '')}")).empty? then
 	  puts "Skipping #{img.href} as already downloaded"
